@@ -11,23 +11,18 @@ const getData = () => {
     }
 }
 const findMedian = (array, left, right) => {
+
     let first = array[left];
     let last = array[right];
-    let mid = Math.floor((right-left)/2);
+    let mid = Math.floor((right+left)/2);
     let middle = array[mid];
-
-    if (first > last){
-        if (first < middle){
-            return left;
-        }else if (middle > last) {  // if first is biggest then compare middle and last to find median
-            return mid;
-        }else {
-            return right;
-        }
-    }else if (first > middle ){ //if first is smaller than last it is either smallest or median so compare to middle
-        return left;           //if first is smaller than last and larger than middle it must be median
-    }else {
+ 
+    if((first < middle && middle < last) || (first > middle && middle > last) ){
         return mid;
+    } else if((middle > first && first > last) || (middle < first && first < last)){
+        return left;
+    } else{
+        return right;
     }
 }
 const partition = (array, left, right) => {
@@ -37,15 +32,17 @@ const partition = (array, left, right) => {
     let midValIndex = left + 1;
     let checkedBoundIndex = left + 1;
 
-    let swap = array[right];
-    array[right] = array[left];
+    let pivotIn = findMedian(array, left, right);
+
+    let swap = array[pivotIn];
+    array[pivotIn] = array[left];
     array[left] = swap;
 
     let pivot = array[left];
 
     comparisons += (right - left);
     for(checkedBoundIndex; checkedBoundIndex <= right; checkedBoundIndex++){
-        comparisons2++;
+      
         if(array[checkedBoundIndex] < pivot){
             let c = array[midValIndex];
             array[midValIndex] = array[checkedBoundIndex];
@@ -64,12 +61,10 @@ const partition = (array, left, right) => {
 }
 
 let comparisons = 0;
-let comparisons2 = 0;
+
 
 let arr = getData();
 
 partition(arr, 0, arr.length-1);
 console.log(comparisons);
-console.log(comparisons2);
-console.log(arr[0]);
-console.log(arr.slice(9990));
+
