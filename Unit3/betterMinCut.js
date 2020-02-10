@@ -14,10 +14,6 @@ function getData() {
         return roughAr;
     }
 }
-// let nodes = [[id/list of ids], n connected nodes, n2, n3,...], [# of node/nodes, n connected nodes], ....[]];
-// when an edge is contracted, the id of later node is pushed into the id position of the node w/ lower index and connected nodes are added
-// the later node is deleted and replaced with [null, position of node containing this node]
-// let edges = [[ref, ref], [ref, ref]]
 
 function processData(roughAr) {
     let finalAr =[];
@@ -88,6 +84,7 @@ function contractEdge(array, edges, edge) {
     }
     array[min].ids.push(...array[max].ids);
     array[min].connects.push(...array[max].connects);
+    
     array[max].ids = null;
     array[max].connects = null;
     array[max].points = min;
