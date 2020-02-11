@@ -39,12 +39,12 @@ def contract(graph, v, w):
 def allTheKarger(min):
     graph = getData()
     
-    for i in range(200**2 * 5):
+    for i in range(1000):
         mutGraph = deepcopy(graph)
        
         
         val = kargerMinCut(mutGraph)
-        if i % 1000 == 0:
+        if i % 10 == 0:
             print("mili")
             print(val)
 
